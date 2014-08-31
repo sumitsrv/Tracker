@@ -1,44 +1,26 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.1
-import QtSensors 5.3
-import QtMultimedia 5.0
 
-ApplicationWindow {
-    id : cameraUI
+Item {
+    width: 800;
+    height: 600;
 
-    width: 800
-    height: 480
-
-    color: "black"
-    Camera {
-        id: camera
-        captureMode: Camera.CaptureStillImage
-
-        imageCapture {
-            onImageCaptured: {
-                photoPreview.source = preview
-                stillControls.previewAvailable = true
-                cameraUI.state = "PhotoPreview"
-            }
-        }
-
-        videoRecorder {
-             resolution: "640x480"
-             frameRate: 15
-        }
-    }
-
-    VideoOutput {
-        id: viewfinder
+    Rectangle {
+        id: mainWindow
+        anchors.fill: parent;
         visible: true
 
-        x: 0
-        y: 0
-        width: parent.width
-        height: parent.height
+        color: white
 
-        source: camera
-        autoOrientation: true
+        //    Image {
+        //        id: bubble
+        //        source: "./images/speech-bubble.svg"
+        //        smooth: true
+        //        property real centerX: mainWindow.width / 2
+        //        property real centerY: mainWindow.height / 2
+        //        property real bubbleCenter: bubble.width / 2
+        //        x: centerX - bubbleCenter
+        //        y: centerY - bubbleCenter
+        //    }
     }
-
 }

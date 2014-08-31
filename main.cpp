@@ -15,13 +15,14 @@
 #include<opencv2/core/core.hpp>
 #include<opencv2/features2d/features2d.hpp>
 #include<opencv2/highgui/highgui.hpp>
+#include <opencv2/calib3d/calib3d.hpp>
 #ifndef ANDROID
     #include "opencv2/nonfree/nonfree.hpp"
 #endif
 #include <opencv2/ml/ml.hpp>
 
-#include <cvimagewidget.h>
-#include <glg.h>
+//#include <cvimagewidget.h>
+//#include <glg.h>
 
 using namespace std;
 using namespace cv;
@@ -36,11 +37,14 @@ int main(int argc, char *argv[])
     view.resize(800, 480);
     view.show();
 
-    QMainWindow sceneWindow;
+//    QQmlApplicationEngine engine;
+//    engine.load(QUrl("qrc:///test.qml"));
+
+//    QMainWindow sceneWindow;
 //    QMainWindow objectWindow;
 
-    CVImageWidget* sceneWidget = new CVImageWidget();
-    sceneWindow.setCentralWidget(sceneWidget);
+//    CVImageWidget* sceneWidget = new CVImageWidget();
+//    sceneWindow.setCentralWidget(sceneWidget);
 
 //    CVImageWidget* objectWidget = new CVImageWidget();
 //    objectWindow.setCentralWidget(objectWidget);
@@ -48,15 +52,18 @@ int main(int argc, char *argv[])
     VideoCapture capture(0);
     Mat img;
 
-    capture >> img;
-//    capture.grab();
-//    capture.retrieve(img, CV_CAP_ANDROID_COLOR_FRAME_RGBA);
+//    capture >> img;
+
+//    capture.open(CV_CAP_ANDROID_FRONT);
+    capture.grab();
+    capture.retrieve(img, CV_CAP_ANDROID_COLOR_FRAME_RGBA);
+
 //    img = cvRetrieveFrame(capture);
 
     Mat gray;
     Mat prev;
     Mat diff;
-    cvtColor(img, prev, CV_BGR2GRAY, 0);
+    cvtColor(img, prev, CV_BGR2GRAY);
 
     //    IplImage *compImage = cvCreateImage(cvSize(sz.width, sz.height), img->depth, 1);
     //    cvSet(compImage, cvScalarAll(255));
@@ -85,7 +92,7 @@ int main(int argc, char *argv[])
     matcher.train();
 
 //    objectWindow.show();
-    sceneWindow.show();
+//    sceneWindow.show();
 
     int k = 2;
     //    objectWidget->showImage(maskImage);
@@ -177,7 +184,7 @@ int main(int argc, char *argv[])
             line( img_matches, scene_corners[2], scene_corners[3], Scalar( 0, 255, 0), 4 );
             line( img_matches, scene_corners[3], scene_corners[0], Scalar( 0, 255, 0), 4 );
         }
-        sceneWidget->showImage(img_matches);
+//        sceneWidget->showImage(img_matches);
 
     }
 
